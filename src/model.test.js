@@ -1,4 +1,4 @@
-import { Ship, Gameboard } from "./model.js";
+import { Ship, Gameboard, Player } from "./model.js";
 
 describe("Testing Ship class", () => {
 	test("ships should have a hit() function that increases the number of hits in ship", () => {
@@ -22,10 +22,10 @@ describe("Testing Gameboard class", () => {
 	let gameboard;
 	let state;
 
-	beforeEach(()=>{
+	beforeEach(() => {
 		gameboardDimension = 5;
 		gameboard = new Gameboard(5, 5);
-		state = Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => 2))
+		state = Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => 2));
 	});
 
 	test(`initialized state: .state should return array of gameboard
@@ -94,5 +94,12 @@ describe("Testing Gameboard class", () => {
 		gameboard.placeShip(x, y, orientation, length);
 		gameboard.receiveAttack(1, 1);
 		expect(gameboard.isSunk()).toBe(true);
+	});
+});
+
+describe("Testing Player class", () => {
+	test(`Player.gameboard should return gameboard state of each player instance`, () => {
+		let player = new Player("computer");
+		expect(player.gameboard).toEqual(new Gameboard(5, 5).state);
 	});
 });

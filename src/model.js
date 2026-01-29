@@ -63,4 +63,16 @@ class Gameboard {
 	}
 }
 
-export { Ship, Gameboard };
+class Player {
+	#gameboard;
+	constructor(type = "real") {
+		this.type = type;
+		this.#gameboard = new Gameboard(5, 5);
+	}
+
+	get gameboard() {
+		return this.#gameboard.state;
+	}
+}
+
+export { Ship, Gameboard, Player };
