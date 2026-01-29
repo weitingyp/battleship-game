@@ -5,7 +5,8 @@
     "deploy": "git subtree push --prefix dist origin gh-pages",
     "eslint": "eslint",
     "eslint:fix": "eslint --fix",
-    "test": "jest"
+    "test": "jest",
+    "format": "prettier --write \"./src/*.{html,js,css}\""
   },
   "devDependencies": {
     "@babel/preset-env": "^7.28.6",
