@@ -28,7 +28,7 @@ class Gameboard {
 	// -2 - missed hot,
 	// 2 - empty but no shot
 
-	constructor(row, col) {
+	constructor(row = 20, col = 20) {
 		this.#state = Array.from({ length: row }, () =>
 			Array.from({ length: col }, () => 2),
 		); // initialize gameboard
@@ -67,7 +67,7 @@ class Player {
 	#gameboard;
 	constructor(type = "real") {
 		this.type = type;
-		this.#gameboard = new Gameboard(5, 5);
+		this.#gameboard = new Gameboard();
 	}
 
 	get gameboard() {
