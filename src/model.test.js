@@ -44,7 +44,7 @@ test(`placeShip(x,y,orientation, length = 3) should place a ship at (x,y) in hor
 			state[i][y] = 1;
 		}
 	} else if (orientation === "horizontal") {
-		for (let j = y - 1; y < j + length; j++) {
+		for (let j = y - 1; j < y + length; j++) {
 			state[x][j] = 1;
 		}
 	}
@@ -71,14 +71,12 @@ test(`receiveAttack(x,y) should hit a ship if present at x,y,
 			state[i][y] = 1;
 		}
 	} else if (orientation === "horizontal") {
-		for (let j = y - 1; y < j + length; j++) {
+		for (let j = y - 1; j < y + length; j++) {
 			state[x][j] = 1;
 		}
 	}
 	// mark missed hit -2 and sunk ship -1
 	state[1][1] = -1;
 	state[0][0] = -2;
-	console.log("STATE IS");
-	console.log(state);
 	expect(gameboard.state).toEqual(state);
 });

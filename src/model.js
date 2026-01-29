@@ -44,11 +44,10 @@ class Gameboard {
 				this.#state[i][y] = 1;
 			}
 		} else if (orientation === "horizontal") {
-			for (let j = y - 1; y < j + length; j++) {
+			for (let j = y - 1; j < y + length; j++) {
 				this.#state[x][j] = 1;
 			}
 		}
-		console.log(this.#state);
 	}
 
 	receiveAttack(x, y) {
@@ -57,7 +56,6 @@ class Gameboard {
 		} else {
 			this.#state[x - 1][y - 1] = this.#state[x - 1][y - 1] * -1;
 		}
-		console.log(this.#state);
 	}
 }
 
