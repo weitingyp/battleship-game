@@ -21,4 +21,21 @@ class Ship {
 	}
 }
 
-export { Ship };
+class Gameboard{
+	
+	#state; // 2D array representing Values: 
+    // -1 - hit ship,
+    // 1 - ship,
+    // -2 - missed hot,
+    // 2 - empty but no shot
+
+	constructor(row, col){
+		this.#state = Array.from({length:row}, ()=> Array.from({length:col}, ()=>2)); // initialize gameboard
+	}
+
+	get state(){
+		return this.#state;
+	}
+}
+
+export { Ship, Gameboard };
