@@ -40,12 +40,12 @@ class Gameboard {
 
 	placeShip(x, y, orientation, length) {
 		if (orientation === "vertical") {
-			for (let i = x - 1; i < x + length; i++) {
-				this.#state[i][y-1] = 1;
+			for (let i = x - 1; i < x - 1 + length; i++) {
+				this.#state[i][y - 1] = 1;
 			}
 		} else if (orientation === "horizontal") {
-			for (let j = y - 1; j < y + length; j++) {
-				this.#state[x-1][j] = 1;
+			for (let j = y - 1; j < y - 1 + length; j++) {
+				this.#state[x - 1][j] = 1;
 			}
 		}
 	}

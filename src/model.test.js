@@ -40,12 +40,12 @@ test(`placeShip(x,y,orientation, length = 3) should place a ship at (x,y) in hor
 	);
 	// mark where the ship is
 	if (orientation === "vertical") {
-		for (let i = x - 1; i < x + length; i++) {
-			state[i][y-1] = 1;
+		for (let i = x - 1; i < x - 1 + length; i++) {
+			state[i][y - 1] = 1;
 		}
 	} else if (orientation === "horizontal") {
-		for (let j = y - 1; j < y + length; j++) {
-			state[x-1][j] = 1;
+		for (let j = y - 1; j < y - 1 + length; j++) {
+			state[x - 1][j] = 1;
 		}
 	}
 
@@ -67,12 +67,12 @@ test(`receiveAttack(x,y) should hit a ship if present at x,y,
 	);
 	// mark where the ship is
 	if (orientation === "vertical") {
-		for (let i = x - 1; i < x + length; i++) {
-			state[i][y-1] = 1;
+		for (let i = x - 1; i < x - 1 + length; i++) {
+			state[i][y - 1] = 1;
 		}
 	} else if (orientation === "horizontal") {
-		for (let j = y - 1; j < y + length; j++) {
-			state[x-1][j] = 1;
+		for (let j = y - 1; j < y - 1 + length; j++) {
+			state[x - 1][j] = 1;
 		}
 	}
 	// mark missed hit -2 and sunk ship -1
