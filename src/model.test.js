@@ -18,6 +18,16 @@ describe("Testing Ship class", () => {
 });
 
 describe("Testing Gameboard class", () => {
+	let gameboardDimension;
+	let gameboard;
+	let state;
+
+	beforeEach(()=>{
+		gameboardDimension = 5;
+		gameboard = new Gameboard(5, 5);
+		state = Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => 2))
+	});
+
 	test(`initialized state: .state should return array of gameboard
     , with x,y coordinates corresponding to x-1 and y-1 indices
     of a 2D array. Values: 
@@ -25,22 +35,13 @@ describe("Testing Gameboard class", () => {
     1 - ship,
     -2 - missed hot,
     2 - empty but no shot`, () => {
-		let gameboard = new Gameboard(15, 15);
-		expect(gameboard.state).toEqual(
-			Array.from({ length: 15 }, () => Array.from({ length: 15 }, () => 2)),
-		);
+		expect(gameboard.state).toEqual(state);
 	});
 
 	test(`placeShip(x,y,orientation, length = 3) should place a ship at (x,y) in horizontal/vertical orientation`, () => {
-		let gameboardDimension = 5;
-		let gameboard = new Gameboard(5, 5);
 		let [x, y, orientation, length] = [1, 1, "horizontal", 3];
 		gameboard.placeShip(x, y, orientation, length);
 
-		// initialize state
-		let state = Array.from({ length: gameboardDimension }, () =>
-			Array.from({ length: gameboardDimension }, () => 2),
-		);
 		// mark where the ship is
 		if (orientation === "vertical") {
 			for (let i = x - 1; i < x - 1 + length; i++) {
@@ -57,17 +58,11 @@ describe("Testing Gameboard class", () => {
 
 	test(`receiveAttack(x,y) should hit a ship if present at x,y,
      or record missed hit otherwise`, () => {
-		let gameboardDimension = 5;
-		let gameboard = new Gameboard(5, 5);
 		let [x, y, orientation, length] = [1, 1, "vertical", 3];
 		gameboard.placeShip(x, y, orientation, length);
 		gameboard.receiveAttack(2, 2);
 		gameboard.receiveAttack(1, 1);
 
-		// initialize state
-		let state = Array.from({ length: gameboardDimension }, () =>
-			Array.from({ length: gameboardDimension }, () => 2),
-		);
 		// mark where the ship is
 		if (orientation === "vertical") {
 			for (let i = x - 1; i < x - 1 + length; i++) {
@@ -86,8 +81,6 @@ describe("Testing Gameboard class", () => {
 
 	test(`isSunk() should return boolean value of weather all ships
     on the board have been sunk - not sunken`, () => {
-		let gameboardDimension = 5;
-		let gameboard = new Gameboard(5, 5);
 		let [x, y, orientation, length] = [1, 1, "vertical", 3];
 		gameboard.placeShip(x, y, orientation, length);
 		gameboard.receiveAttack(2, 2);
@@ -97,8 +90,6 @@ describe("Testing Gameboard class", () => {
 
 	test(`isSunk() should return boolean value of weather all ships
     on the board have been sunk - sunken`, () => {
-		let gameboardDimension = 5;
-		let gameboard = new Gameboard(5, 5);
 		let [x, y, orientation, length] = [1, 1, "vertical", 1];
 		gameboard.placeShip(x, y, orientation, length);
 		console.log(gameboard.state);
