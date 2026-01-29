@@ -92,9 +92,7 @@ describe("Testing Gameboard class", () => {
     on the board have been sunk - sunken`, () => {
 		let [x, y, orientation, length] = [1, 1, "vertical", 1];
 		gameboard.placeShip(x, y, orientation, length);
-		console.log(gameboard.state);
 		gameboard.receiveAttack(1, 1);
-		console.log(gameboard.state);
 		expect(gameboard.isSunk()).toBe(true);
 	});
 });
