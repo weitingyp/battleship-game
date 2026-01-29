@@ -50,6 +50,15 @@ class Gameboard {
 		}
 		console.log(this.#state);
 	}
+
+	receiveAttack(x, y) {
+		if (this.#state[x - 1][y - 1] < 0) {
+			throw new Error("already attacked before!");
+		} else {
+			this.#state[x - 1][y - 1] = this.#state[x - 1][y - 1] * -1;
+		}
+		console.log(this.#state);
+	}
 }
 
 export { Ship, Gameboard };

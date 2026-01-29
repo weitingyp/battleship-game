@@ -51,3 +51,34 @@ test(`placeShip(x,y,orientation, length = 3) should place a ship at (x,y) in hor
 
 	expect(gameboard.state).toEqual(state);
 });
+
+test(`receiveAttack(x,y) should hit a ship if present at x,y,
+     or record missed hit otherwise`, () => {
+	let gameboardDimension = 5;
+	let gameboard = new Gameboard(5, 5);
+	let [x, y, orientation, length] = [1, 1, "vertical", 3];
+	gameboard.placeShip(x, y, orientation, length);
+	gameboard.receiveAttack(2, 2);
+	gameboard.receiveAttack(1, 1);
+
+	// initialize state
+	let state = Array.from({ length: gameboardDimension }, () =>
+		Array.from({ length: gameboardDimension }, () => 2),
+	);
+	// mark where the ship is
+	if (orientation === "vertical") {
+		for (let i = x - 1; i < x + length; i++) {
+			state[i][y] = 1;
+		}
+	} else if (orientation === "horizontal") {
+		for (let j = y - 1; y < j + length; j++) {
+			state[x][j] = 1;
+		}
+	}
+	// mark missed hit -2 and sunk ship -1
+	state[1][1] = -1;
+	state[0][0] = -2;
+	console.log("STATE IS");
+	console.log(state);
+	expect(gameboard.state).toEqual(state);
+});
