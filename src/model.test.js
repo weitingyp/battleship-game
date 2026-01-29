@@ -22,6 +22,32 @@ test(`initialized state: .state should return array of gameboard
     1 - ship,
     -2 - missed hot,
     2 - empty but no shot`, () => {
-        let gameboard = new Gameboard(15, 15);
-        expect(gameboard.state).toEqual(Array.from({length:15}, () => Array.from({length:15}, () => 2)));
-})
+	let gameboard = new Gameboard(15, 15);
+	expect(gameboard.state).toEqual(
+		Array.from({ length: 15 }, () => Array.from({ length: 15 }, () => 2)),
+	);
+});
+
+test(`placeShip(x,y,orientation, length = 3) should place a ship at (x,y) in horizontal/vertical orientation`, () => {
+	let gameboardDimension = 5;
+	let gameboard = new Gameboard(5, 5);
+	let [x, y, orientation, length] = [1, 1, "horizontal", 3];
+	gameboard.placeShip(x, y, orientation, length);
+
+	// initialize state
+	let state = Array.from({ length: gameboardDimension }, () =>
+		Array.from({ length: gameboardDimension }, () => 2),
+	);
+	// mark where the ship is
+	if (orientation === "vertical") {
+		for (let i = x - 1; i < x + length; i++) {
+			state[i][y] = 1;
+		}
+	} else if (orientation === "horizontal") {
+		for (let j = y - 1; y < j + length; j++) {
+			state[x][j] = 1;
+		}
+	}
+
+	expect(gameboard.state).toEqual(state);
+});
