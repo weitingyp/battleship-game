@@ -80,3 +80,26 @@ test(`receiveAttack(x,y) should hit a ship if present at x,y,
 	state[0][0] = -1;
 	expect(gameboard.state).toEqual(state);
 });
+
+test(`isSunk() should return boolean value of weather all ships
+    on the board have been sunk - not sunken`, () => {
+	let gameboardDimension = 5;
+	let gameboard = new Gameboard(5, 5);
+	let [x, y, orientation, length] = [1, 1, "vertical", 3];
+	gameboard.placeShip(x, y, orientation, length);
+	gameboard.receiveAttack(2, 2);
+	gameboard.receiveAttack(1, 1);
+	expect(gameboard.isSunk()).toBe(false);
+});
+
+test(`isSunk() should return boolean value of weather all ships
+    on the board have been sunk - sunken`, () => {
+	let gameboardDimension = 5;
+	let gameboard = new Gameboard(5, 5);
+	let [x, y, orientation, length] = [1, 1, "vertical", 1];
+	gameboard.placeShip(x, y, orientation, length);
+	console.log(gameboard.state);
+	gameboard.receiveAttack(1, 1);
+	console.log(gameboard.state);
+	expect(gameboard.isSunk()).toBe(true);
+});

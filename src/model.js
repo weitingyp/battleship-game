@@ -57,6 +57,10 @@ class Gameboard {
 			this.#state[x - 1][y - 1] = this.#state[x - 1][y - 1] * -1;
 		}
 	}
+
+	isSunk() {
+		return !this.#state.some((row) => row.includes(1));
+	}
 }
 
 export { Ship, Gameboard };
