@@ -79,4 +79,14 @@ class Player {
 	}
 }
 
+class Game{
+	#currPlayer;
+	#nextPlayer;
+
+	constructor(versus = "computer"){
+		this.#currPlayer = new Player();
+		if (versus === "computer") this.#nextPlayer = new Player("computer");
+	}
+}
+
 export { Ship, Gameboard, Player };
