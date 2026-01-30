@@ -54,3 +54,62 @@
     flex-direction: column;
     justify-content: center;
 }
+
+.gameboard{
+    width: 100%;
+    aspect-ratio: 1 / 1;
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.gameboard-row{
+    width: 100%;
+    display: flex;
+    flex: auto;
+}
+
+.cell{
+    border: 1px darkgray solid;
+    flex: 1 1 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.unknown-cell{
+    background-color: lightblue;
+}
+
+.empty-cell{
+    background-color: lightgrey;
+}
+
+.sunken-cell{
+    background-color: lightcoral;
+    border: 2px red solid;
+}
+
+.empty-circle{
+    aspect-ratio: 1 / 1;
+    height: 25%;
+    background-color: white;
+    border-radius: 50%;
+    border-radius: 1px black solid;
+}
+
+.sunken-cell::before, .sunken-cell::after{
+    content: '';
+    height: clamp(15px, 120%, 150%);
+    width: 2px;
+    background-color: red;
+}
+
+.sunken-cell::before{
+    transform: rotate(45deg);
+}
+
+.sunken-cell::after{
+    transform: rotate(-45deg);
+}
