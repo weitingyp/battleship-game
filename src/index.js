@@ -1,1 +1,1 @@
-console.log("hello world!");
+import { Ship, Gameboard, Player } from "./model.js";
