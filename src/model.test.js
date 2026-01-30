@@ -23,9 +23,11 @@ describe("Testing Gameboard class", () => {
 	let state;
 
 	beforeEach(() => {
-		gameboardDimension = 5;
-		gameboard = new Gameboard(5, 5);
-		state = Array.from({ length: 5 }, () => Array.from({ length: 5 }, () => 2));
+		gameboardDimension = 10;
+		gameboard = new Gameboard();
+		state = Array.from({ length: gameboardDimension }, () =>
+			Array.from({ length: gameboardDimension }, () => 2),
+		);
 	});
 
 	test(`initialized state: .state should return array of gameboard
@@ -100,6 +102,6 @@ describe("Testing Gameboard class", () => {
 describe("Testing Player class", () => {
 	test(`Player.gameboard should return gameboard state of each player instance`, () => {
 		let player = new Player("computer");
-		expect(player.gameboard).toEqual(new Gameboard(5, 5).state);
+		expect(player.gameboard).toEqual(new Gameboard().state);
 	});
 });

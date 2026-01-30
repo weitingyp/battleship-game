@@ -28,7 +28,7 @@ class Gameboard {
 	// -2 - missed hot,
 	// 2 - empty but no shot
 
-	constructor(row = 20, col = 20) {
+	constructor(row = 10, col = 10) {
 		this.#state = Array.from({ length: row }, () =>
 			Array.from({ length: col }, () => 2),
 		); // initialize gameboard
@@ -79,11 +79,11 @@ class Player {
 	}
 }
 
-class Game{
+class Game {
 	#currPlayer;
 	#nextPlayer;
 
-	constructor(versus = "computer"){
+	constructor(versus = "computer") {
 		this.#currPlayer = new Player();
 		if (versus === "computer") this.#nextPlayer = new Player("computer");
 	}
