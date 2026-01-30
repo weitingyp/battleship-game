@@ -1,0 +1,56 @@
+#container{
+    height: 100vh;
+    width: 100vw;
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-template-rows: auto 1fr;
+    grid-template-areas: 
+    " title "
+    " game-container ";
+}
+
+#title{
+    grid-area: title;
+}
+
+#game-container{
+    grid-area: game-container;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-template-rows: 1fr 20%;
+    grid-template-areas:
+    " player-one-container player-two-container "
+    " play-interface play-interface "
+}
+
+#player-one-container{
+    grid-area: player-one-container;
+}
+
+#player-two-container{
+    grid-area: player-two-container;
+}
+
+.player-container{
+    display: grid;
+    grid-template-rows: auto 1fr;
+    grid-template-columns: 1fr;
+    grid-template-areas: 
+    " player-name "
+    " player-board ";
+}
+
+.player-name{
+    grid-area: player-name;
+}
+
+.player-board{
+    grid-area: player-board;
+}
+
+#play-interface{
+    grid-area: play-interface;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
