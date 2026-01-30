@@ -58,6 +58,12 @@ describe("Testing Gameboard class", () => {
 		expect(gameboard.state).toEqual(state);
 	});
 
+	test(`placeShip(x,y,orientation, length = 3) should return 0 when ship is tried to be placed out of bounds / none empty space`, () => {
+		let [x, y, orientation, length] = [20, 20, "horizontal", 3];
+		const res = gameboard.placeShip(x, y, orientation, length);
+		expect(res).toBe(0);
+	});
+
 	test(`receiveAttack(x,y) should hit a ship if present at x,y,
      or record missed hit otherwise`, () => {
 		let [x, y, orientation, length] = [1, 1, "vertical", 3];

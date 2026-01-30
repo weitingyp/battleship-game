@@ -39,18 +39,31 @@ class Gameboard {
 	}
 
 	placeShip(x, y, orientation, length) {
-		if (orientation === "vertical") {
-			if (y - 1 + length > this.#state.length)
-				throw new Error("Ship does not fit vertically");
-			for (let i = x - 1; i < x - 1 + length; i++) {
-				this.#state[i][y - 1] = 1;
+		let resetState = this.#state;
+
+		try {
+			if (orientation === "vertical") {
+				if (y - 1 + length > this.#state.length)
+					throw new Error("Ship does not fit vertically");
+				for (let i = x - 1; i < x - 1 + length; i++) {
+					if (this.#state[i][y - 1] == 1)
+						throw new Error("There's already a ship here");
+					this.#state[i][y - 1] = 1;
+				}
+			} else if (orientation === "horizontal") {
+				if (x - 1 + length > this.#state.length)
+					throw new Error("Ship does not fit horizontally");
+				for (let j = y - 1; j < y - 1 + length; j++) {
+					if (this.#state[x - 1][j] == 1)
+						throw new Error("There's already a ship here");
+					this.#state[x - 1][j] = 1;
+				}
 			}
-		} else if (orientation === "horizontal") {
-			if (x - 1 + length > this.#state.length)
-				throw new Error("Ship does not fit horizontally");
-			for (let j = y - 1; j < y - 1 + length; j++) {
-				this.#state[x - 1][j] = 1;
-			}
+			return 1;
+		} catch (error) {
+			this.#state = resetState;
+			console.log(error.message);
+			return 0;
 		}
 	}
 
