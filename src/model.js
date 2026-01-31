@@ -43,7 +43,8 @@ class Gameboard {
 
 	placeShip(ship, x, y, orientation) {
 		const length = ship.length;
-		let resetState = this.state;
+		let resetState = this.state.map((row) => [...row]);
+		let resetShips = this.ships.map((row) => [...row]);
 
 		try {
 			if (orientation === "vertical") {
@@ -67,7 +68,8 @@ class Gameboard {
 			}
 			return 1;
 		} catch (error) {
-			this.state = resetState;
+			this.state = resetState.map((row) => [...row]);
+			this.ships = resetShips.map((row) => [...row]);
 			console.log(error.message);
 			return 0;
 		}
@@ -78,7 +80,7 @@ class Gameboard {
 			throw new Error("already attacked before!");
 		} else {
 			this.state[x - 1][y - 1] = this.state[x - 1][y - 1] * -1;
-			if (this.ships[x - 1][y - 1]) this.ships[x-1][y-1].hit();
+			if (this.ships[x - 1][y - 1]) this.ships[x - 1][y - 1].hit();
 		}
 	}
 
