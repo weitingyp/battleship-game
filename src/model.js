@@ -78,6 +78,7 @@ class Gameboard {
 			throw new Error("already attacked before!");
 		} else {
 			this.state[x - 1][y - 1] = this.state[x - 1][y - 1] * -1;
+			if (this.ships[x - 1][y - 1]) this.ships[x-1][y-1].hit();
 		}
 	}
 

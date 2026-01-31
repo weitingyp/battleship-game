@@ -90,6 +90,17 @@ describe("Testing Gameboard class", () => {
 		expect(gameboard.state).toEqual(state);
 	});
 
+	test(`receiveAttack(x,y) should hit a ship if present at x,y,
+     or record missed hit otherwise`, () => {
+		let length = 3;
+		let [ship, x, y, orientation] = [new Ship(length), 1, 1, "vertical"];
+		gameboard.placeShip(ship, x, y, orientation);
+		gameboard.receiveAttack(2, 2);
+		gameboard.receiveAttack(1, 1);
+
+		expect(ship.hits).toEqual(1);
+	});
+
 	test(`isSunk() should return boolean value of weather all ships
     on the board have been sunk - not sunken`, () => {
 		let length = 3;
