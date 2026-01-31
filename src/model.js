@@ -47,7 +47,7 @@ class Gameboard {
 
 		try {
 			if (orientation === "vertical") {
-				if (y - 1 + length > this.state.length)
+				if (x - 1 + length > this.state.length)
 					throw new Error("Ship does not fit vertically");
 				for (let i = x - 1; i < x - 1 + length; i++) {
 					if (this.state[i][y - 1] == 1)
@@ -56,7 +56,7 @@ class Gameboard {
 					this.ships[i][y - 1] = ship;
 				}
 			} else if (orientation === "horizontal") {
-				if (x - 1 + length > this.state.length)
+				if (y - 1 + length > this.state.length)
 					throw new Error("Ship does not fit horizontally");
 				for (let j = y - 1; j < y - 1 + length; j++) {
 					if (this.state[x - 1][j] == 1)
