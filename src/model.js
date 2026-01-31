@@ -112,17 +112,16 @@ class Game {
 	randomizeShipPos(ship) {
 		const orientation =
 			Math.round(Math.random()) === 1 ? "horizontal" : "vertical";
-		const length = ship.length;
 		const gameboardDimension = this.currPlayer.gameboard.state.length;
 		const x = Math.ceil(gameboardDimension * Math.random());
 		const y = Math.ceil(gameboardDimension * Math.random());
-		return [x, y, orientation, length];
+		return [x, y, orientation];
 	}
 
 	randomizeGameboard(player) {
 		// randomize gameboard for player
 		for (const ship of this.ships) {
-			while (!player.gameboard.placeShip(...this.randomizeShipPos(ship)))
+			while (!player.gameboard.placeShip(ship, ...this.randomizeShipPos(ship)))
 				continue;
 		}
 	}
