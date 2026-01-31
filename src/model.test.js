@@ -40,9 +40,10 @@ describe("Testing Gameboard class", () => {
 		expect(gameboard.state).toEqual(state);
 	});
 
-	test(`placeShip(x,y,orientation, length = 3) should place a ship at (x,y) in horizontal/vertical orientation`, () => {
-		let [x, y, orientation, length] = [1, 1, "horizontal", 3];
-		gameboard.placeShip(x, y, orientation, length);
+	test(`placeShip(ship, x,y,orientation ) should place a ship at (x,y) in horizontal/vertical orientation`, () => {
+		let length = 3;
+		let [ship, x, y, orientation] = [new Ship(length), 1, 1, "horizontal"];
+		gameboard.placeShip(ship, x, y, orientation);
 
 		// mark where the ship is
 		if (orientation === "vertical") {
@@ -58,16 +59,18 @@ describe("Testing Gameboard class", () => {
 		expect(gameboard.state).toEqual(state);
 	});
 
-	test(`placeShip(x,y,orientation, length = 3) should return 0 when ship is tried to be placed out of bounds / none empty space`, () => {
-		let [x, y, orientation, length] = [20, 20, "horizontal", 3];
-		const res = gameboard.placeShip(x, y, orientation, length);
+	test(`placeShip(ship, x,y,orientation) should return 0 when ship is tried to be placed out of bounds / none empty space`, () => {
+		let length = 3;
+		let [ship, x, y, orientation] = [new Ship(length), 20, 20, "horizontal"];
+		const res = gameboard.placeShip(ship, x, y, orientation);
 		expect(res).toBe(0);
 	});
 
 	test(`receiveAttack(x,y) should hit a ship if present at x,y,
      or record missed hit otherwise`, () => {
-		let [x, y, orientation, length] = [1, 1, "vertical", 3];
-		gameboard.placeShip(x, y, orientation, length);
+		let length = 3;
+		let [ship, x, y, orientation] = [new Ship(length), 1, 1, "vertical"];
+		gameboard.placeShip(ship, x, y, orientation);
 		gameboard.receiveAttack(2, 2);
 		gameboard.receiveAttack(1, 1);
 
@@ -89,8 +92,9 @@ describe("Testing Gameboard class", () => {
 
 	test(`isSunk() should return boolean value of weather all ships
     on the board have been sunk - not sunken`, () => {
-		let [x, y, orientation, length] = [1, 1, "vertical", 3];
-		gameboard.placeShip(x, y, orientation, length);
+		let length = 3;
+		let [ship, x, y, orientation] = [new Ship(length), 1, 1, "vertical"];
+		gameboard.placeShip(ship, x, y, orientation);
 		gameboard.receiveAttack(2, 2);
 		gameboard.receiveAttack(1, 1);
 		expect(gameboard.isSunk()).toBe(false);
