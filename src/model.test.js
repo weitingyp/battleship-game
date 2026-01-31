@@ -108,6 +108,6 @@ describe("Testing Gameboard class", () => {
 describe("Testing Player class", () => {
 	test(`Player.gameboard should return gameboard state of each player instance`, () => {
 		let player = new Player("computer");
-		expect(player.gameboard).toEqual(new Gameboard().state);
+		expect(player.gameboard).toEqual(new Gameboard());
 	});
 });
