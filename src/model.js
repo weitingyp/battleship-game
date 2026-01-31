@@ -12,7 +12,7 @@ class Ship {
 		return this.#hits;
 	}
 
-	get length(){
+	get length() {
 		return this.#length;
 	}
 
@@ -36,9 +36,13 @@ class Gameboard {
 		this.state = Array.from({ length: row }, () =>
 			Array.from({ length: col }, () => 2),
 		); // initialize gameboard
+		this.ships = Array.from({ length: row }, () =>
+			Array.from({ length: col }, () => null),
+		); // 2D array to store and mark Ship objects
 	}
 
-	placeShip(x, y, orientation, length) {
+	placeShip(ship, x, y, orientation) {
+		const length = ship.length;
 		let resetState = this.state;
 
 		try {
@@ -49,6 +53,7 @@ class Gameboard {
 					if (this.state[i][y - 1] == 1)
 						throw new Error("There's already a ship here");
 					this.state[i][y - 1] = 1;
+					this.ships[i][y - 1] = ship;
 				}
 			} else if (orientation === "horizontal") {
 				if (x - 1 + length > this.state.length)
@@ -57,6 +62,7 @@ class Gameboard {
 					if (this.state[x - 1][j] == 1)
 						throw new Error("There's already a ship here");
 					this.state[x - 1][j] = 1;
+					this.ships[x - 1][j] = ship;
 				}
 			}
 			return 1;
@@ -94,24 +100,32 @@ class Game {
 	constructor(versus = "computer") {
 		this.currPlayer = new Player();
 		if (versus === "computer") this.nextPlayer = new Player("computer");
-		this.ships = [new Ship(5), new Ship(4), new Ship(3), new Ship(3), new Ship(2)];
+		this.ships = [
+			new Ship(5),
+			new Ship(4),
+			new Ship(3),
+			new Ship(3),
+			new Ship(2),
+		];
 	}
 
-	randomizeShipPos(ship){
-		const orientation = Math.round(Math.random()) === 1 ? 'horizontal' : 'vertical';
+	randomizeShipPos(ship) {
+		const orientation =
+			Math.round(Math.random()) === 1 ? "horizontal" : "vertical";
 		const length = ship.length;
 		const gameboardDimension = this.currPlayer.gameboard.state.length;
-		const x = Math.ceil(gameboardDimension*Math.random());
-		const y = Math.ceil(gameboardDimension*Math.random());
+		const x = Math.ceil(gameboardDimension * Math.random());
+		const y = Math.ceil(gameboardDimension * Math.random());
 		return [x, y, orientation, length];
 	}
 
-	randomizeGameboard(player){
+	randomizeGameboard(player) {
 		// randomize gameboard for player
-		for ( const ship of this.ships ){
-			while ( !player.gameboard.placeShip(...this.randomizeShipPos(ship)) ) continue;
+		for (const ship of this.ships) {
+			while (!player.gameboard.placeShip(...this.randomizeShipPos(ship)))
+				continue;
 		}
 	}
 }
 
-export { Ship, Gameboard, Player, Game};
+export { Ship, Gameboard, Player, Game };
