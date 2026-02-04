@@ -109,7 +109,7 @@
 
 .sunken-cell{
     background-color: lightcoral;
-    border: 2px red solid;
+    border: 0.5px red solid;
 }
 
 .empty-circle{
