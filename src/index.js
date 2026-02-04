@@ -24,6 +24,7 @@ function initCells() {
 		gameboardContainersId[+nextPlayerContainer] + " .cell.unknown-cell",
 	);
 	for (const cell of cells) {
+        cell.classList.add("active");
 		cell.addEventListener("click", attackCell);
 	}
 }

@@ -71,7 +71,8 @@
 }
 
 .cell{
-    border: 1px darkgray solid;
+    border: 0.5px darkgray solid;
+    box-sizing: content-box;
     flex: 1 1 0;
     display: flex;
     justify-content: center;
@@ -79,7 +80,11 @@
 }
 
 .unknown-cell{
-    background-color: lightblue;
+    background-color: rgb(173, 216, 230);
+}
+
+.active:hover{
+    background-color: rgb(173, 230, 270);
 }
 
 .empty-cell{
