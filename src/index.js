@@ -21,7 +21,7 @@ renderGameboard(game.nextPlayer.gameboard.state, gameboardContainers[1]);
 // initCells adds click event listener to every cell
 function initCells() {
 	const cells = document.querySelectorAll(
-		gameboardContainersId[+nextPlayerContainer] + " .cell",
+		gameboardContainersId[+nextPlayerContainer] + " .cell.unknown-cell",
 	);
 	for (const cell of cells) {
 		cell.addEventListener("click", attackCell);
