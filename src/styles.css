@@ -72,11 +72,12 @@
 }
 
 .gameboard{
-    width: 100%;
+    width: 70%;
     aspect-ratio: 1 / 1;
     display: flex;
     flex-direction: column;
     padding: 20px;
+    margin: auto;
     box-sizing: border-box;
 }
 
