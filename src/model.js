@@ -77,11 +77,13 @@ class Gameboard {
 
 	receiveAttack(x, y) {
 		if (this.state[x - 1][y - 1] < 0) {
-			throw new Error("already attacked before!");
+			// throw new Error("already attacked before!");
+			return false;
 		} else {
 			this.state[x - 1][y - 1] = this.state[x - 1][y - 1] * -1;
 			if (this.ships[x - 1][y - 1]) this.ships[x - 1][y - 1].hit();
 		}
+		return true;
 	}
 
 	isSunk() {
@@ -103,7 +105,8 @@ class Game {
 
 	constructor(versus = "computer") {
 		this.currPlayer = new Player("Player One");
-		if (versus === "computer") this.nextPlayer = new Player("Computer", "computer");
+		if (versus === "computer")
+			this.nextPlayer = new Player("Computer", "computer");
 		this.ships = [
 			new Ship(5),
 			new Ship(4),
@@ -113,22 +116,36 @@ class Game {
 		];
 	}
 
-	playTurn(i,j){
-		this.nextPlayer.gameboard.receiveAttack(i+1,j+1);
+	playTurn(i, j) {
+		this.nextPlayer.gameboard.receiveAttack(i + 1, j + 1);
 	}
 
-	turnover(){
+	turnover() {
 		const _ = this.currPlayer;
 		this.currPlayer = this.nextPlayer;
 		this.nextPlayer = _;
 	}
 
-	randomizeShipPos(ship) {
-		const orientation =
-			Math.round(Math.random()) === 1 ? "horizontal" : "vertical";
+	isComputerTurn() {
+		return this.currPlayer.type === "computer";
+	}
+
+	playComputerTurn() {
+		while (!this.nextPlayer.gameboard.receiveAttack(...this.randomizeCoords()))
+			continue;
+	}
+
+	randomizeCoords() {
 		const gameboardDimension = this.currPlayer.gameboard.state.length;
 		const x = Math.ceil(gameboardDimension * Math.random());
 		const y = Math.ceil(gameboardDimension * Math.random());
+		return [x, y];
+	}
+
+	randomizeShipPos(ship) {
+		const orientation =
+			Math.round(Math.random()) === 1 ? "horizontal" : "vertical";
+		const [x, y] = this.randomizeCoords();
 		return [x, y, orientation];
 	}
 

@@ -5,7 +5,10 @@ import "./styles.css";
 // nextPlayerContainer tracks index of gameboard under attack
 // gameboardContainers is an array of the two gameboard containers
 let nextPlayerContainer = true;
-const gameboardContainers = [document.querySelector("#player-one-board"), document.querySelector("#player-two-board")];
+const gameboardContainers = [
+	document.querySelector("#player-one-board"),
+	document.querySelector("#player-two-board"),
+];
 const gameboardContainersId = ["#player-one-board", "#player-two-board"];
 
 // initialize the game
@@ -16,11 +19,13 @@ renderGameboard(game.currPlayer.gameboard.state, gameboardContainers[0]);
 renderGameboard(game.nextPlayer.gameboard.state, gameboardContainers[1]);
 
 // initCells adds click event listener to every cell
-function initCells(){
-    const cells = document.querySelectorAll(gameboardContainersId[+nextPlayerContainer] + " .cell");
-    for (const cell of cells){
-        cell.addEventListener('click', attackCell);
-    }
+function initCells() {
+	const cells = document.querySelectorAll(
+		gameboardContainersId[+nextPlayerContainer] + " .cell",
+	);
+	for (const cell of cells) {
+		cell.addEventListener("click", attackCell);
+	}
 }
 initCells();
 
@@ -31,24 +36,38 @@ initCells();
 // 4. initCells adds event listeners to the new next player's cells again
 // 5. updateTurnIndicator renders new current player's turn
 
-function attackCell(event){
-    const cell = event.target;
-    const [i,j] = JSON.parse(cell.getAttribute('data-coordinates')).coords;
-    game.playTurn(i,j);
-    renderGameboard(game.nextPlayer.gameboard.state, gameboardContainers[+nextPlayerContainer]);
-    turnover();
-    initCells();
-    updateTurnIndicator();
+function attackCell(event) {
+	const cell = event.target;
+	const [i, j] = JSON.parse(cell.getAttribute("data-coordinates")).coords;
+	game.playTurn(i, j);
+	renderGameboard(
+		game.nextPlayer.gameboard.state,
+		gameboardContainers[+nextPlayerContainer],
+	);
+	turnover();
+	initCells();
+	updateTurnIndicator();
+	if (game.isComputerTurn())
+		setTimeout(() => {
+			game.playComputerTurn();
+			renderGameboard(
+				game.nextPlayer.gameboard.state,
+				gameboardContainers[+nextPlayerContainer],
+			);
+			turnover();
+			initCells();
+			updateTurnIndicator();
+		}, 750);
 }
 
-function turnover(){
-    // nextPlayerContainer tracks next player's container in gameboardContainers
-    nextPlayerContainer = !nextPlayerContainer;
-    // switches game's logic: curr and next player
-    game.turnover();
+function turnover() {
+	// nextPlayerContainer tracks next player's container in gameboardContainers
+	nextPlayerContainer = !nextPlayerContainer;
+	// switches game's logic: curr and next player
+	game.turnover();
 }
 
 const turnIndicator = document.querySelector("#turn-indicator");
-function updateTurnIndicator(){
-    turnIndicator.innerText = `It's ${game.currPlayer.name}'s turn`;
+function updateTurnIndicator() {
+	turnIndicator.innerText = `It's ${game.currPlayer.name}'s turn`;
 }
