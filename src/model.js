@@ -90,7 +90,8 @@ class Gameboard {
 }
 
 class Player {
-	constructor(type = "real") {
+	constructor(name = "Player", type = "real") {
+		this.name = name;
 		this.type = type;
 		this.gameboard = new Gameboard();
 	}
@@ -101,8 +102,8 @@ class Game {
 	nextPlayer;
 
 	constructor(versus = "computer") {
-		this.currPlayer = new Player();
-		if (versus === "computer") this.nextPlayer = new Player("computer");
+		this.currPlayer = new Player("Player One");
+		if (versus === "computer") this.nextPlayer = new Player("Computer", "computer");
 		this.ships = [
 			new Ship(5),
 			new Ship(4),
@@ -110,6 +111,16 @@ class Game {
 			new Ship(3),
 			new Ship(2),
 		];
+	}
+
+	playTurn(i,j){
+		this.nextPlayer.gameboard.receiveAttack(i+1,j+1);
+	}
+
+	turnover(){
+		const _ = this.currPlayer;
+		this.currPlayer = this.nextPlayer;
+		this.nextPlayer = _;
 	}
 
 	randomizeShipPos(ship) {
