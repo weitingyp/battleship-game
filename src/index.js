@@ -10,6 +10,7 @@ const gameboardContainers = [
 	document.querySelector("#player-two-board"),
 ];
 const gameboardContainersId = ["#player-one-board", "#player-two-board"];
+const playerNamesContainers = [document.querySelector("#player-one-name"), document.querySelector("#player-two-name")];
 
 // initialize the game
 const game = new Game();
@@ -74,6 +75,8 @@ function turnover() {
 const turnIndicator = document.querySelector("#turn-indicator");
 function updateTurnIndicator() {
 	turnIndicator.innerText = `It's ${game.currPlayer.name}'s turn`;
+    playerNamesContainers[+nextPlayerContainer].classList.remove('curr-player');
+    playerNamesContainers[+!nextPlayerContainer].classList.add('curr-player');
 }
 
 function gameover() {
