@@ -40,8 +40,17 @@
     " player-board ";
 }
 
+#title {
+    display: flex;
+    justify-content: center;
+}
+
 .player-name{
     grid-area: player-name;
+    font-weight: bold;
+    display: flex;
+    align-content: center;
+    justify-content: center;
 }
 
 .player-board{
