@@ -44,20 +44,23 @@ function attackCell(event) {
 		game.nextPlayer.gameboard.state,
 		gameboardContainers[+nextPlayerContainer],
 	);
-	turnover();
-	initCells();
-	updateTurnIndicator();
-	if (game.isComputerTurn())
-		setTimeout(() => {
-			game.playComputerTurn();
-			renderGameboard(
-				game.nextPlayer.gameboard.state,
-				gameboardContainers[+nextPlayerContainer],
-			);
-			turnover();
-			initCells();
-			updateTurnIndicator();
-		}, 750);
+	if (game.nextPlayer.gameboard.isSunk()) gameover();
+	else {
+		turnover();
+		initCells();
+		updateTurnIndicator();
+		if (game.isComputerTurn())
+			setTimeout(() => {
+				game.playComputerTurn();
+				renderGameboard(
+					game.nextPlayer.gameboard.state,
+					gameboardContainers[+nextPlayerContainer],
+				);
+				turnover();
+				initCells();
+				updateTurnIndicator();
+			}, 750);
+	}
 }
 
 function turnover() {
@@ -70,4 +73,8 @@ function turnover() {
 const turnIndicator = document.querySelector("#turn-indicator");
 function updateTurnIndicator() {
 	turnIndicator.innerText = `It's ${game.currPlayer.name}'s turn`;
+}
+
+function gameover() {
+	alert(`Gameover! ${game.currPlayer.name} is the winner.`);
 }
